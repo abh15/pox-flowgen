@@ -1,8 +1,9 @@
 #A script to create custom POX flows
-#by Abhishek Dandekar
+#http://www.github.com/abh15/pox-flowgen
 
 #import random
-#fname="poxscript_"+str(random.randint(1000,9999))+".py"
+#fname="poxscript_"+str(random.randint(1000,9999))+".py" 
+#uncomment above two lines & comment one below if you want to generate each script with different name
 fname="controllerScript.py"
 file=open(fname,'w')
 file.close()		
