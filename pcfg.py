@@ -1,8 +1,9 @@
 #A script to create custom POX flows
-#by Abhishek Dandekar
+#http://github.com/abh15/pox-flowgen
 
 #import random
 #fname="poxscript_"+str(random.randint(1000,9999))+".py"
+#uncomment above lines if each script with a new name is required
 fname="controllerScript.py"
 file=open(fname,'w')
 file.close()		
@@ -28,7 +29,7 @@ def check(): #call match again or exit depending on if i/p is A or M
 def check2(str1,str2): #call actions again or exit depending on if i/p is A or N
 	global msg
 	msg.append(str1+str2)  				#create/concat array of all used actions
-	f=raw_input("Enter A to stay in action\nN to exit actions\n>")
+	f=raw_input("Enter A to stay in action\nF to create Flow\n>")
 	if f=="A":
     	
 		print t2
@@ -133,8 +134,14 @@ def match(k):
 		target.write("\n")
 		check()
 
+	def priority():
+		f=raw_input("Enter priority>")
+		target.write(name+"msg.priority="+str(f))
+		target.write("\n")
+		check()	
+
 	options={1:inport,2:dltype,3:nwtos,4:nwproto,5:nwsrc,
-	6:nwdst,7:dlvlan,8:dlvlanpcp,9:dlsrc,10:dldst,11:tpsrc,12:tpdst}	#func_dictionary
+	6:nwdst,7:dlvlan,8:dlvlanpcp,9:dlsrc,10:dldst,11:tpsrc,12:tpdst,13:priority}	#func_dictionary
 	
 	target.write("\n#"+name+" Match structure\n")    
 	target.write(baz[int(sw_no)]+"="+dpid+"\n")  	#write dpid
@@ -252,8 +259,8 @@ def switch():						#get number of switches,flows & dpid
 		baz.append("switch"+str(i))
 	
 	sw_no=raw_input(">")
-	dpid=raw_input("Enter DPID of switch(16 digit)\n>")
-	
+	tbp=raw_input("Enter DPID of switch(a hex no.)\n>")
+	dpid=oct(int(str(int(tbp,16))))
 	flows=raw_input("Enter no of flows\n>")
 	fooflows=int(flows)						#used for checkswitch func, possibly buggy
 	y.append(int(flows)) 					#create list of no. of flowmsgs per switch for sendToDPID msgs
@@ -275,7 +282,7 @@ def fl():							#display available match/actions & get them
 
 	fl_no=raw_input(">")
 	
-	t= "\n1:inport\n2:dltype\n3:nwtos\n4:nwproto\n5:nwsrc\n6:nwdst\n7:dlvlan\n8:dlvlanpcp\n9:dlsrc\n10:dldst\n11:tpsrc\n12:tpdst"
+	t= "\n1:inport\n2:dltype\n3:nwtos\n4:nwproto\n5:nwsrc\n6:nwdst\n7:dlvlan\n8:dlvlanpcp\n9:dlsrc\n10:dldst\n11:tpsrc\n12:tpdstn\n13:Priority"
 	print t                 #choose a match & call match func
 	q=raw_input(">")
 	match(int(q))
