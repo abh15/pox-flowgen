@@ -1,9 +1,8 @@
 #A script to create custom POX flows
-#http://www.github.com/abh15/pox-flowgen
+#by Abhishek Dandekar
 
 #import random
-#fname="poxscript_"+str(random.randint(1000,9999))+".py" 
-#uncomment above two lines & comment one below if you want to generate each script with different name
+#fname="poxscript_"+str(random.randint(1000,9999))+".py"
 fname="controllerScript.py"
 file=open(fname,'w')
 file.close()		
@@ -11,7 +10,7 @@ file.close()
 
 target=open(fname,'w')
 target.write("\"\"\"\nScript created by POX custom flow generator (PCFG)\n\"\"\"\n")
-target.write("from pox.core import core \nfrom pox.lib.addresses import IPAddr \nfrom pox.lib.addresses \nimport EthAddr \nimport pox.openflow.libopenflow_01 as of")
+target.write("from pox.core import core \nfrom pox.lib.addresses import IPAddr \nfrom pox.lib.addresses import EthAddr \nimport pox.openflow.libopenflow_01 as of")
 target.write("\nlog = core.getLogger()\n")
 #----print importing
 
@@ -72,65 +71,65 @@ def match(k):
 
 	def inport():
 		f=raw_input("Enter inport>")
-		target.write(name+".match.in_port="+str(f)+"\n")
+		target.write(name+"msg.match.in_port="+str(f)+"\n")
 		check()					#check if more matching actions are going to be added
 		
 	def dltype():
 		f=raw_input("Enter dltype>")
-		target.write(name+".match.dl_type="+str(f)+"\n")
+		target.write(name+"msg.match.dl_type="+str(f)+"\n")
 		check()
 
 	def nwtos():
 		f=raw_input("Enter nwtos>")
-		target.write(name+".match.nw_tos="+str(f)+"\n")
+		target.write(name+"msg.match.nw_tos="+str(f)+"\n")
 		check()
 
 	def nwproto():
 		f=raw_input("Enter nwproto>")
-		target.write(name+".match.nw_proto="+str(f)+"\n")
+		target.write(name+"msg.match.nw_proto="+str(f)+"\n")
 		check()
 
 	def nwsrc():
 		f=raw_input("Enter nwsrc>")
-		target.write(name+".match.nw_src=IPAddr(\""+f+"\")\n")
+		target.write(name+"msg.match.nw_src=IPAddr(\""+f+"\")\n")
 		check()
 
 	def nwdst():
 		f=raw_input("Enter nwdst>")
-		target.write(name+".match.nw_dst=IPAddr(\""+f+"\")\n")
+		target.write(name+"msg.match.nw_dst=IPAddr(\""+f+"\")\n")
 		check()
 
 	def dlvlan():
 		f=raw_input("Enter dlvlan>")
-		target.write(name+".match.dl_vlan="+str(f))
+		target.write(name+"msg.match.dl_vlan="+str(f))
 		target.write("\n")
 		check()
 
 	def dlvlanpcp():
 		f=raw_input("Enter dlvlanpcp>")
-		target.write(name+".match.dl_vlan_pcp="+str(f))
+		target.write(name+"msg.match.dl_vlan_pcp="+str(f))
 		target.write("\n")
 		check()
 
 	def dlsrc():
 		f=raw_input("Enter dlsrc>")
-		target.write(name+".match.dl_src = EthAddr(\""+f+"\")\n")
+		target.write(name+"msg.match.dl_src = EthAddr(\""+f+"\")\n")
 		check()
 
 	def dldst():
 		f=raw_input("Enter dldst>")
-		target.write(name+".match.dl_dst = EthAddr(\""+f+"\")\n")
+		target.write(name+"msg.match.dl_dst = EthAddr(\""+f+"\")\n")
 		check()
 
 	def tpsrc():
 		f=raw_input("Enter tpsrc>")
-		target.write(name+".match.tp_src="+str(f))
+		target.write(name+"msg.match.tp_src="+str(f))
 		target.write("\n")
 		check()
 
 	def tpdst():
 		f=raw_input("Enter tp dst>")
-		target.write(name+".match.tp_dst="+str(f))
+		target.write(name+"msg.match.tp_dst="+str(f))
 		target.write("\n")
 		check()
 
@@ -288,7 +287,7 @@ def fl():							#display available match/actions & get them
 
 	target.write("# ACTIONS----------------\n")
 	actions(int(w)) 												#choose a action & call action func
-	target.write(name+".actions="+str(msg).replace('\'','')+"\n")   #print the msg arrsy containing actions used
+	target.write(name+"msg.actions="+str(msg).replace('\'','')+"\n")   #print the msg arrsy containing actions used
 	msg=[]
 	#--------end actions
 	checkflows()	#check for more flows 
