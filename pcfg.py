@@ -1,4 +1,4 @@
-#A script to create custom POX flows
+ #A script to create custom POX flows
 #http://github.com/abh15/pox-flowgen
 
 #import random
@@ -144,7 +144,7 @@ def match(k):
 	6:nwdst,7:dlvlan,8:dlvlanpcp,9:dlsrc,10:dldst,11:tpsrc,12:tpdst,13:priority}	#func_dictionary
 	
 	target.write("\n#"+name+" Match structure\n")    
-	target.write(baz[int(sw_no)]+"="+dpid+"\n")  	#write dpid
+	target.write(baz[int(sw_no)]+"="+str(dpid)+"\n")  	#write dpid
 	target.write(name+"msg = of.ofp_flow_mod()\n")
 	target.write(name+"msg.cookie = 0\n")
 	options[k]()									#call the k'th function depending upon user input
@@ -257,10 +257,15 @@ def switch():						#get number of switches,flows & dpid
 	for i in xrange(0,int(x)):
 		print str(i)+":"+"\tswitch"+str(i)
 		baz.append("switch"+str(i))
+		defaultdpid=i+1
 	
 	sw_no=raw_input(">")
-	tbp=raw_input("Enter DPID of switch(a hex no.)\n>")
-	dpid=oct(int(str(int(tbp,16))))
+	tbp=raw_input("Enter DPID of switch(a hex no.) or D for default dpid\n>")
+	if (tbp=="D"):
+		dpid=oct(int(str(defaultdpid),10))
+		
+	else:	
+		dpid=oct(int(tbp,16))
 	flows=raw_input("Enter no of flows\n>")
 	fooflows=int(flows)						#used for checkswitch func, possibly buggy
 	y.append(int(flows)) 					#create list of no. of flowmsgs per switch for sendToDPID msgs
