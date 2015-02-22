@@ -16,6 +16,7 @@ target.write("\nlog = core.getLogger()\n")
 #----print importing
 
 
+
 def check(): #call match again or exit depending on if i/p is A or M
 	f=raw_input("Enter A to move to action\nM to stay in match menu\n>") 
 	if f=="M":
@@ -66,8 +67,7 @@ def checkswitch():
 #-------keeps in switch/flow menu until all switches/flows are specified---------		
 
 def match(k):
-	global name
-	name=bar[int(fl_no)] #flow name of current instance
+	#global name
 	
 
 	def inport():
@@ -151,7 +151,7 @@ def match(k):
 
 #----------matching structure---------
 def actions(k):
-	name=bar[int(fl_no)]           #name of current flow instance
+	          #name of current flow instance
 
 	def vlan_id():
 		
@@ -257,9 +257,10 @@ def switch():						#get number of switches,flows & dpid
 	for i in xrange(0,int(x)):
 		print str(i)+":"+"\tswitch"+str(i)
 		baz.append("switch"+str(i))
-		defaultdpid=i+1
+		
 	
 	sw_no=raw_input(">")
+	defaultdpid=int(sw_no)+1
 	tbp=raw_input("Enter DPID of switch(a hex no.) or D for default dpid\n>")
 	if (tbp=="D"):
 		dpid=oct(int(str(defaultdpid),10))
@@ -279,14 +280,17 @@ def fl():							#display available match/actions & get them
 	global t
 	global t2
 	global q
+	global name
 	
 	print "Select flow:\n"						#display flows to choose from
 	for i in xrange(0,int(flows)):
 		print str(i)+":"+"\tflow"+str(sw_no)+"_"+str(i)
 		bar.append("flow"+str(sw_no)+"_"+str(i))
 
+
 	fl_no=raw_input(">")
-	
+	name="flow"+sw_no+"_"+fl_no
+
 	t= "\n1:inport\n2:dltype\n3:nwtos\n4:nwproto\n5:nwsrc\n6:nwdst\n7:dlvlan\n8:dlvlanpcp\n9:dlsrc\n10:dldst\n11:tpsrc\n12:tpdstn\n13:Priority"
 	print t                 #choose a match & call match func
 	q=raw_input(">")
